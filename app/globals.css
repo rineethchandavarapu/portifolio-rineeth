@@ -76,6 +76,6 @@ main { scrollbar-width: none; -ms-overflow-style: none; }
   }
 
   /* Override inline 100vh - Chrome mobile toolbar hides bottom content */
-  html, body { height: 100svh !important; }
-  main { height: 100svh !important; }
+  html, body { height: 100dvh !important; }
+  main { height: 100dvh !important; }
 }

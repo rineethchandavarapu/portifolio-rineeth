@@ -28,7 +28,7 @@ export default function Home() {
 
     const restoredScrollTop = Math.min(savedScrollTop, el.scrollHeight - el.clientHeight)
     el.scrollTop = restoredScrollTop
-    idxRef.current = Math.round(restoredScrollTop / window.innerHeight)
+    idxRef.current = Math.round(restoredScrollTop / el.clientHeight)
     setShowLoader(false)
   }, [])
 
@@ -49,7 +49,7 @@ export default function Home() {
         busyRef.current = true
         tweenRef.current?.kill()
         tweenRef.current = null
-        el.scrollTo({ top: idx * window.innerHeight, behavior: 'instant' })
+        el.scrollTo({ top: idx * el.clientHeight, behavior: 'instant' })
         ScrollTrigger.update()
         window.setTimeout(() => { busyRef.current = false }, 120)
         return
@@ -60,7 +60,7 @@ export default function Home() {
       tweenRef.current?.kill()
 
       tweenRef.current = gsap.to(el, {
-        scrollTop: idx * window.innerHeight,
+        scrollTop: idx * el.clientHeight,
         duration: 1.0,
         ease: 'power3.inOut',
         onComplete: () => { setTimeout(() => { busyRef.current = false }, 600) },
@@ -80,7 +80,7 @@ export default function Home() {
 
       e.preventDefault()
       if (busyRef.current) return
-      const currentIdx = Math.round(el.scrollTop / window.innerHeight)
+      const currentIdx = Math.round(el.scrollTop / el.clientHeight)
       idxRef.current = currentIdx
       goTo(currentIdx + (e.deltaY > 0 ? 1 : -1))
     }
@@ -106,7 +106,7 @@ export default function Home() {
       if (Math.abs(dy) < 40) return
       if (nestedTouch) return
 
-      const currentIdx = Math.round(el.scrollTop / window.innerHeight)
+      const currentIdx = Math.round(el.scrollTop / el.clientHeight)
       idxRef.current = currentIdx
       goTo(currentIdx + (dy > 0 ? 1 : -1))
     }
@@ -114,7 +114,7 @@ export default function Home() {
     function onScroll() {
       sessionStorage.setItem('portfolio-scroll-top', String(el.scrollTop))
       if (busyRef.current) return
-      idxRef.current = Math.round(el.scrollTop / window.innerHeight)
+      idxRef.current = Math.round(el.scrollTop / el.clientHeight)
     }
 
     let resizeTimeout
@@ -125,7 +125,7 @@ export default function Home() {
           const wasBusy = busyRef.current
           busyRef.current = true
           // Re-align scroll position to the current section index using the new height
-          el.scrollTop = idxRef.current * window.innerHeight
+          el.scrollTop = idxRef.current * el.clientHeight
           // Force ScrollTrigger to recalculate metrics
           ScrollTrigger.refresh()
           setTimeout(() => {
@@ -162,7 +162,7 @@ export default function Home() {
       )}
 
       <Navbar isStarted={!showLoader} />
-      <main ref={mainRef} style={{ height: '100vh', overflowY: 'scroll', overscrollBehavior: 'none' }}>
+      <main ref={mainRef} style={{ height: '100dvh', overflowY: 'scroll', overscrollBehavior: 'none' }}>
         <div>
           <VideoIntro />
           <HeroSection />

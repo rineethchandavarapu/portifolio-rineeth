@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { SITE_URL } from '@/lib/siteConfig'
 import { ImageResponse } from 'next/og'
 import profile from '@/data/profile.json'
@@ -14,8 +16,12 @@ export const size = {
 export const contentType = 'image/png'
 
 const ACCENT = '#f7931e'
-const photoUrl = `${SITE_URL}/assets/rineeth-about3.png`
-const logoUrl = `${SITE_URL}/favicons/android-chrome-192x192.png`
+const toDataUri = (relPath) => {
+  const buf = fs.readFileSync(path.join(process.cwd(), 'public', relPath))
+  return `data:image/png;base64,${buf.toString('base64')}`
+}
+const photoUrl = toDataUri('assets/rineeth-about3.png')
+const logoUrl = toDataUri('favicons/android-chrome-192x192.png')
 const siteHost = new URL(SITE_URL).host
 
 export default function Image() {

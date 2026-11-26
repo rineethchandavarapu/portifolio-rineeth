@@ -2,7 +2,7 @@
 .section {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100dvh;
   z-index: 4;
   background: #0d0d0d;
   overflow: hidden;
@@ -54,7 +54,7 @@
 /* ── Horizontal track ────────────────────────── */
 .track {
   display: flex;
-  height: 100vh;
+  height: 100dvh;
   will-change: transform;
   position: relative;
   z-index: 1;
@@ -63,7 +63,7 @@
 /* ── Single slide ────────────────────────────── */
 .slide {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
